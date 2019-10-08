@@ -1,0 +1,79 @@
+---
+title: "Exploring Mass Shootings in America"
+author: "Benjamin Soltoff"
+output: github_document
+---
+
+## Get the data
+
+```{r, echo = TRUE}
+library(tidyverse)    # load tidyverse packages, including ggplot2
+library(knitr)        # load functions for formatting tables
+
+# get data from rcfss package
+# install latest version if not already installed
+# devtools::install_github("uc-cfss/rcfss")
+library(rcfss)
+
+# load the data
+data("mass_shootings")
+mass_shootings
+```
+
+## Generate a data frame that summarizes the number of mass shootings per year. Print the data frame as a formatted `kable()` table.
+
+```{r}
+
+```
+
+## Generate a bar chart that identifies the number of mass shooters associated with each race category. The bars should be sorted from highest to lowest.
+
+```{r}
+
+```
+
+## Generate a boxplot visualizing the number of total victims, by type of location. Redraw the same plot, but remove the Las Vegas Strip massacre from the dataset.
+
+```{r}
+
+```
+
+## How many white males with prior signs of mental illness initiated a mass shooting after 2000?
+
+```{r}
+
+```
+
+## Which month of the year has the most mass shootings? Generate a bar chart sorted in chronological order to provide evidence of your answer.
+
+```{r}
+
+```
+
+## How does the distribution of mass shooting fatalities differ between white and black shooters? What about white and latino shooters?
+
+## Okay graphs
+
+```{r}
+
+```
+
+## A better graph
+
+```{r}
+
+```
+
+## Are mass shootings with shooters suffering from mental illness different from mass shootings with no signs of mental illness in the shooter? Assess the relationship between mental illness and total victims, mental illness and race, and the intersection of all three variables.
+
+```{r}
+
+```
+
+## Session info
+
+```{r, echo = TRUE}
+devtools::session_info()
+```
+
+
