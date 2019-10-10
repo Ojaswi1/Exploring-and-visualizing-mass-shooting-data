@@ -52,14 +52,6 @@ mass_shootings
 
 ## How does the distribution of mass shooting fatalities differ between white and black shooters? What about white and latino shooters?
 
-## Okay graphs
-
-```{r}
-
-```
-
-## A better graph
-
 ```{r}
 
 ```
