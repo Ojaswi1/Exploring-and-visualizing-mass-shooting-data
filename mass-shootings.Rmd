@@ -23,12 +23,37 @@ mass_shootings
 ## Generate a data frame that summarizes the number of mass shootings per year. Print the data frame as a formatted `kable()` table.
 
 ```{r}
+yearly_data <- mass_shootings %>%
+count(year)
+
+column_names <- c('Year', 'Number of mass shootings')
+
+knitr::kable(
+  yearly_data,
+  format = "html",
+  caption = "Mass shootings in the United States (1982-2019)",
+  col.names = column_names,
+  kable_styling(latex_options = c("striped", "scale_down"))
+)
+
+# kable(yearly_data, "html", caption = "Mass shootings in the United States (1982-2019)", col.names = column_names, booktabs = T)
 
 ```
+
 
 ## Generate a bar chart that identifies the number of mass shooters associated with each race category. The bars should be sorted from highest to lowest.
 
 ```{r}
+data_without_na <- filter(mass_shootings, !is.na(race))
+
+ggplot(data = data_without_na) + 
+  geom_bar(
+    mapping = aes(x = forcats::fct_infreq(race)), 
+    na.rm = TRUE
+  ) + 
+  labs(title = "Mass shootings in the United States (1982-2019)") +
+  labs(x = "Race of perpetrator", y = "Number of incidents")
+
 
 ```
 
