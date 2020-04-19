@@ -33,7 +33,7 @@ knitr::kable(
   format = "html",
   caption = "Mass shootings in the United States (1982-2019)",
   col.names = column_names,
-  kable_styling(latex_options = c("striped", "scale_down"))
+  # kable_styling(latex_options = c("striped", "scale_down"))
 )
 
 # kable(yearly_data, "html", caption = "Mass shootings in the United States (1982-2019)", col.names = column_names, booktabs = T)
@@ -44,7 +44,7 @@ knitr::kable(
 ## Generate a bar chart that identifies the number of mass shooters associated with each race category. The bars should be sorted from highest to lowest.
 
 ```{r}
-data_without_na <- filter(mass_shootings, !is.na(race))
+data_without_na <- filter(.data = mass_shootings, !is.na(race))
 
 ggplot(data = data_without_na) + 
   geom_bar(
@@ -60,7 +60,20 @@ ggplot(data = data_without_na) +
 ## Generate a boxplot visualizing the number of total victims, by type of location. Redraw the same plot, but remove the Las Vegas Strip massacre from the dataset.
 
 ```{r}
+ 
+ggplot(data = mass_shootings, 
+       mapping = aes(x = location_type, y = total_victims)) +
+  geom_boxplot() +
+  labs(title = "Mass shootings in the United States (1982-2019)") +
+  labs(x = "Type of location of incident", y = "Total number of victims")
 
+omitted_lvstrip <- filter(.data = mass_shootings, case!= "Las Vegas Strip massacre"	)
+
+ggplot(data = omitted_lvstrip, 
+       mapping = aes(x = location_type, y = total_victims)) +
+  geom_boxplot() +
+  labs(title = "Mass shootings in the United States (1982-2019)", subtitle = "Omitting Las Vegas Strip massacre") +
+  labs(x = "Type of location of incident", y = "Total number of victims")
 ```
 
 ## How many white males with prior signs of mental illness initiated a mass shooting after 2000?
