@@ -79,8 +79,14 @@ ggplot(data = omitted_lvstrip,
 ## How many white males with prior signs of mental illness initiated a mass shooting after 2000?
 
 ```{r}
+x <- filter(.data = mass_shootings, male == TRUE & race == "White" & prior_mental_illness == "Yes" & year > 2000)
+
+count(x)
+
 
 ```
+
+*Answer* = 20 white males with prior signs of mental illness initiated a mass shooting after 2000.
 
 ## Which month of the year has the most mass shootings? Generate a bar chart sorted in chronological order to provide evidence of your answer.
 
