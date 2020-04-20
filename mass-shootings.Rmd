@@ -191,9 +191,10 @@ ggplot(data = clean_data, mapping = aes(x = prior_mental_illness, y = total_vict
   
 
 ```
-**Answer**: From Plot 5, those with prior mental illesses have a longer box plots as well as longer whiskers when compared to those with no evidence of prior mental illness. This implies more variance in the total number of victims. Moreover, the outliers are also larger for those with prior mental illness. In contrast, the minimum value of total number of victims for those with prior mental illness is also smaller than those without. Moreover, the median values for both with and without illnesses is not very different. This leads to the conclusion that those with prior mental illnesses are more likely to be shooters, but also that their behaviour seems to be more sporadic and variable than those with no prior mental illness. This is also confirmed from Plot 1, where the medians are very close, but perpetrators with prior mental illnesses have higher maximum values, lower minimum values and larger variance.
+**Answer**: 
+- From Plot 5, those with prior mental illesses have a longer box plots as well as longer whiskers when compared to those with no evidence of prior mental illness. This implies more variance in the total number of victims. Moreover, the outliers are also larger for those with prior mental illness. In contrast, the minimum value of total number of victims for those with prior mental illness is also smaller than those without. Moreover, the median values for both with and without illnesses is not very different. This leads to the conclusion that those with prior mental illnesses are more likely to be shooters, but also that their behaviour seems to be more sporadic and variable than those with no prior mental illness. This is also confirmed from Plot 1, where the medians are very close, but perpetrators with prior mental illnesses have higher maximum values, lower minimum values and larger variance.
 
-From Plot 6, having a mental illness creates perpetrators from all 5 races, whereas those with no prior mental illness belong to only 3 races. Moreover, having a mental illness leads to larger variance as mentioned above. 
+- From Plot 6, having a mental illness creates perpetrators from all 5 races, whereas those with no prior mental illness belong to only 3 races. Moreover, having a mental illness leads to larger variance as mentioned above. 
 
 
 ## Session info
