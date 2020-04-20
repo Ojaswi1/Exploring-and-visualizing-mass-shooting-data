@@ -80,29 +80,114 @@ ggplot(data = omitted_lvstrip,
 
 ```{r}
 x <- filter(.data = mass_shootings, male == TRUE & race == "White" & prior_mental_illness == "Yes" & year > 2000)
-
 count(x)
-
-
 ```
 
-*Answer* = 20 white males with prior signs of mental illness initiated a mass shooting after 2000.
+**Answer** = 20 white males with prior signs of mental illness initiated a mass shooting after 2000.
 
 ## Which month of the year has the most mass shootings? Generate a bar chart sorted in chronological order to provide evidence of your answer.
 
 ```{r}
 
+months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+ggplot(data = mass_shootings) +
+  geom_bar( mapping = aes(x = month)) + 
+   scale_x_discrete(limits = months) + 
+  labs(title = "Mass shootings in the United States (1982-2019)") +
+  labs(x = "Month", y = "Number of mass shootings")
+
 ```
+
+**Answer**: From the above bar graph we can see that both February and June have the most mass shootings in the year. This is 12 mass shootings in both these months.
 
 ## How does the distribution of mass shooting fatalities differ between white and black shooters? What about white and latino shooters?
 
 ```{r}
+
+
+fatality_race <- group_by(mass_shootings, fatalities, race)
+races <- filter(.data = fatality_race, race == "White" | race == "Black" | race == "Latino") 
+final <- summarize(races, 
+          count_is = n()
+          )
+
+ggplot(data = mass_shootings, mapping = aes(x = fatalities, y = ..count.., colour = race)) + 
+  geom_line()
+
+ggplot( data = final, mapping = aes(x = fatalities, y = count_is)) +
+  geom_histogram() +
+  facet_grid(~race)
+
+ggplot( data = mass_shootings, mapping = aes(x = fatalities)) +
+  geom_histogram() +
+  facet_grid(~race)
+
+ggplot(data = mass_shootings, mapping = aes(x = fatalities)) +
+  stat_count(geom = 'line', aes(y = ..count.., color = races))
+
 
 ```
 
 ## Are mass shootings with shooters suffering from mental illness different from mass shootings with no signs of mental illness in the shooter? Assess the relationship between mental illness and total victims, mental illness and race, and the intersection of all three variables.
 
 ```{r}
+
+# Plot 1: Relationship between mental illness and total victims
+illness_without_na <- filter(.data = mass_shootings, !is.na(prior_mental_illness))
+
+ggplot(illness_without_na, mapping = aes(x = prior_mental_illness, y = total_victims)) + 
+  geom_boxplot() + 
+  labs(title = "Mass shootings in the United States (1982-2019)") +
+  labs(x = "Evidence of prior mental illness by perpetrator", y = "Number of total victims")
+
+# Plot 2: Relationship between Race and Total Victimes
+race_without_na <- filter(.data = mass_shootings, !is.na(race))
+
+plot <- ggplot(data = race_without_na, 
+       mapping = aes(x = race, y = total_victims)) +
+  geom_boxplot() +
+  labs(title = "Mass shootings in the United States (1982-2019)") +
+  labs(x = "Race of perpetrator", y = "Total number of victims")
+
+# Plot 3 ISSUE
+plot + ylim(0,100)
+  # scale_y_continuous(breaks=c(seq(3,10,7), seq(10, 30, 20), seq(30,100,70), seq(100,300,200)))
+
+# Plot 4: Omitting Las Vegas Strip massacre
+
+omitted_lvstrip <- filter(.data = mass_shootings, case!= "Las Vegas Strip massacre"	)
+
+ggplot(data = omitted_lvstrip, 
+       mapping = aes(x = race, y = total_victims)) +
+  geom_boxplot() +
+  labs(title = "Mass shootings in the United States (1982-2019)", subtitle = "Omitting Las Vegas Strip Massacre (2017") +
+  labs(x = "Race of perpetrator", y = "Total number of victims")
+
+# Plot 5: Intersection of Race, Total Victims and Prior Mental Illness
+
+clean_data <- filter(.data = mass_shootings, race!= "Other" & !is.na(race) & !is.na(prior_mental_illness))
+  
+ggplot(data = clean_data, mapping = aes(x = total_victims, y = race, fill = prior_mental_illness)) +
+  geom_boxplot() + 
+  labs(title = "Mass shootings in the United States (1982-2019)") +
+  labs(x = "Number of total victims", y = "Race of perpetrator") + 
+  labs(fill = "Evidence of prior mental illness") + 
+  theme(legend.position = "bottom")
+
+# Plot 6: Another intersection of Race, Total Victims and Prior Mental Illness
+
+clean_data <- filter(.data = mass_shootings, race!= "Other" & !is.na(race) & !is.na(prior_mental_illness))
+
+ggplot(data = clean_data, mapping = aes(x = prior_mental_illness, y = total_victims, fill = race)) +
+  geom_boxplot() + 
+  labs(title = "Mass shootings in the United States (1982-2019)") +
+  labs(x = "Evidence of prior mental illness", y = " Number of total victims") + 
+  labs(fill = "Race of perpetrator") + 
+  theme(legend.position = "bottom")
+
+
+  
 
 ```
 
