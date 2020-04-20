@@ -1,6 +1,12 @@
 # Homework 02: Exploring and visualizing data
 
-**Ojaswi Malik**: My completed github_document is -> mass-shootings.md
+**Ojaswi Malik**
+
+* My completed R Markdown using the github_document format is -> mass-shootings.md
+
+
+
+_______________________________________________________________________________________
 
 See detailed instructions for this homework assignment [here](https://cfss.uchicago.edu/homework/explore-data/).
 
