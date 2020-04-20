@@ -1,5 +1,7 @@
 # Homework 02: Exploring and visualizing data
 
+** Ojaswi Malik: My completed github_document is -> mass-shootings.md
+
 See detailed instructions for this homework assignment [here](https://cfss.uchicago.edu/homework/explore-data/).
 
 ## Required packages
