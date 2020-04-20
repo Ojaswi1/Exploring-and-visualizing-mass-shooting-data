@@ -1,6 +1,6 @@
 ---
 title: "Exploring Mass Shootings in America"
-author: "Benjamin Soltoff"
+author: "Ojaswi Malik"
 output: github_document
 ---
 
@@ -26,7 +26,7 @@ mass_shootings
 yearly_data <- mass_shootings %>%
 count(year)
 
-column_names <- c('Year', 'Number of mass shootings')
+column_names <- c('Year', 'Number of mass shootings') # Column Names for the kable()
 
 
 knitr::kable(
@@ -43,7 +43,7 @@ knitr::kable(
 ## Generate a bar chart that identifies the number of mass shooters associated with each race category. The bars should be sorted from highest to lowest.
 
 ```{r}
-data_without_na <- filter(.data = mass_shootings, !is.na(race))
+data_without_na <- filter(.data = mass_shootings, !is.na(race)) # Cleaning the data of NA race values
 
 ggplot(data = data_without_na) + 
   geom_bar(
@@ -66,7 +66,7 @@ ggplot(data = mass_shootings,
   labs(title = "Mass shootings in the United States (1982-2019)") +
   labs(x = "Type of location of incident", y = "Total number of victims")
 
-omitted_lvstrip <- filter(.data = mass_shootings, case!= "Las Vegas Strip massacre"	)
+omitted_lvstrip <- filter(.data = mass_shootings, case!= "Las Vegas Strip massacre"	) # Filtering out the LV Strip Massacre
 
 ggplot(data = omitted_lvstrip, 
        mapping = aes(x = location_type, y = total_victims)) +
@@ -80,15 +80,16 @@ ggplot(data = omitted_lvstrip,
 ```{r}
 x <- filter(.data = mass_shootings, male == TRUE & race == "White" & prior_mental_illness == "Yes" & year > 2000)
 count(x)
+
 ```
 
-**Answer** = 20 white males with prior signs of mental illness initiated a mass shooting after 2000.
+**Answer**: 20 white males with prior signs of mental illness initiated a mass shooting after 2000.
 
 ## Which month of the year has the most mass shootings? Generate a bar chart sorted in chronological order to provide evidence of your answer.
 
 ```{r}
 
-months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec") #Ordering the months in chronological order to set as limit for the bar graph
 
 ggplot(data = mass_shootings) +
   geom_bar( mapping = aes(x = month)) + 
@@ -104,28 +105,21 @@ ggplot(data = mass_shootings) +
 
 ```{r}
 
-fatality_race <- group_by(mass_shootings, fatalities, race)
-races <- filter(.data = fatality_race, race == "White" | race == "Black" | race == "Latino") 
-final <- summarize(races, 
-          count_is = n()
-          )
+filter_race <- filter(.data = mass_shootings, race == "White" | race == "Black" | race == "Latino" ) #Filtering the data
 
-# ggplot(data = mass_shootings, mapping = aes(x = fatalities, y = ..count.., colour = race)) + 
-  #geom_line()
-
-# ggplot( data = final, mapping = aes(x = fatalities, y = count_is)) +
-  #geom_histogram() +
-  #facet_grid(~race)
-
-ggplot( data = mass_shootings, mapping = aes(x = fatalities)) +
+ggplot( data = filter_race, mapping = aes(x = fatalities)) +
   geom_histogram() +
-  facet_grid(~race)
-
-# ggplot(data = mass_shootings, mapping = aes(x = fatalities)) +
-  #stat_count(geom = 'line', aes(y = ..count.., color = races))
-
-
+  facet_grid(~race, scales = "free") + 
+  labs(title = "Mass shootings in the United States (1982-2019)") +
+  labs(x = "Number of fatalities per incident", y = "Number of incidents")
+  
 ```
+
+**Answer**:
+
+* *Difference in distribution of mass shooting fatalities between white and black shooters*: White shooters are more variable, with the highest number of fatalities being 58. Morever, they also have a larger number of incidents with fatalities in the range 3-10. In comparison, black shooters always have less than or equal to 5 incidents of fatalities ranging from 1-12.5.
+
+* *Difference in distribution of mass shooting fatalities between white and latino shooters*: Compared to white shooters, latino shooters are much less active. They have a much less maximum number of fatalities per incident of 7. Similiar to black shooters, latino shooters also always have less than or equal to 5 incidents of fatalities
 
 ## Are mass shootings with shooters suffering from mental illness different from mass shootings with no signs of mental illness in the shooter? Assess the relationship between mental illness and total victims, mental illness and race, and the intersection of all three variables.
 
@@ -150,11 +144,10 @@ plot <- ggplot(data = race_without_na,
 
 plot 
 
-# Plot 3 ISSUE
+# Plot 3: Setting limit on Y-axis to get a closer look
 plot + ylim(0,100)
-  # scale_y_continuous(breaks=c(seq(3,10,7), seq(10, 30, 20), seq(30,100,70), seq(100,300,200)))
 
-# Plot 4: Omitting Las Vegas Strip massacre
+# Plot 4: Omitting Las Vegas Strip massacre to see relationship between Race and Total Victimes
 
 omitted_lvstrip <- filter(.data = mass_shootings, case!= "Las Vegas Strip massacre"	)
 
@@ -190,10 +183,13 @@ ggplot(data = clean_data, mapping = aes(x = prior_mental_illness, y = total_vict
   
 
 ```
-**Answer**: 
-- From Plot 5, those with prior mental illesses have a longer box plots as well as longer whiskers when compared to those with no evidence of prior mental illness. This implies more variance in the total number of victims. Moreover, the outliers are also larger for those with prior mental illness. In contrast, the minimum value of total number of victims for those with prior mental illness is also smaller than those without. Moreover, the median values for both with and without illnesses is not very different. This leads to the conclusion that those with prior mental illnesses are more likely to be shooters, but also that their behaviour seems to be more sporadic and variable than those with no prior mental illness. This is also confirmed from Plot 1, where the medians are very close, but perpetrators with prior mental illnesses have higher maximum values, lower minimum values and larger variance.
 
-- From Plot 6, having a mental illness creates perpetrators from all 5 races, whereas those with no prior mental illness belong to only 3 races. Moreover, having a mental illness leads to larger variance as mentioned above. 
+
+**Answer**: 
+
+* From Plot 5, those with prior mental illesses have a longer box plots as well as longer whiskers when compared to those with no evidence of prior mental illness. This implies more variance in the total number of victims. Moreover, the outliers are also larger for those with prior mental illness. In contrast, the minimum value of total number of victims for those with prior mental illness is also smaller than those without. Moreover, the median values for both with and without illnesses is not very different. This leads to the conclusion that those with prior mental illnesses are more likely to be shooters, but also that their behaviour seems to be more sporadic and variable than those with no prior mental illness. This is also confirmed from Plot 1, where the medians are very close, but perpetrators with prior mental illnesses have higher maximum values, lower minimum values and larger variance.
+
+* From Plot 6, having a mental illness creates perpetrators from all 5 races, whereas those with no prior mental illness belong to only 3 races. Moreover, having a mental illness leads to larger variance as mentioned above. 
 
 
 ## Session info
