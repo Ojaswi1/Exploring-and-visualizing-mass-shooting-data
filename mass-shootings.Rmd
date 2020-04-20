@@ -111,10 +111,10 @@ final <- summarize(races,
           count_is = n()
           )
 
-ggplot(data = mass_shootings, mapping = aes(x = fatalities, y = ..count.., colour = race)) + 
+# ggplot(data = mass_shootings, mapping = aes(x = fatalities, y = ..count.., colour = race)) + 
   geom_line()
 
-ggplot( data = final, mapping = aes(x = fatalities, y = count_is)) +
+# ggplot( data = final, mapping = aes(x = fatalities, y = count_is)) +
   geom_histogram() +
   facet_grid(~race)
 
@@ -122,7 +122,7 @@ ggplot( data = mass_shootings, mapping = aes(x = fatalities)) +
   geom_histogram() +
   facet_grid(~race)
 
-ggplot(data = mass_shootings, mapping = aes(x = fatalities)) +
+# ggplot(data = mass_shootings, mapping = aes(x = fatalities)) +
   stat_count(geom = 'line', aes(y = ..count.., color = races))
 
 
